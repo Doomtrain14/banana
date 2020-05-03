@@ -254,7 +254,7 @@ Private Function update_part_count() As Currency
     Dim file_part_count As Currency
     file_part_count = 1 + Int(g_file_size / conv_split_size)
     
-    'update part count in gui
+    'update part count in GUI
     lbl_part_count.Caption = Str$(file_part_count) + " Part(s)"
     
     If (file_part_count < 2) Then

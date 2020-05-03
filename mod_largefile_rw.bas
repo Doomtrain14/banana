@@ -1,5 +1,6 @@
 Attribute VB_Name = "mod_largefile_rw"
 Option Explicit
+'Constants
 Private Const GENERIC_WRITE As Long = &H40000000
 Private Const GENERIC_READ As Long = &H80000000
 Private Const FILE_ATTRIBUTE_NORMAL As Long = &H80&

@@ -8,6 +8,7 @@ Private Declare Function CreateDirectory Lib "kernel32" Alias "CreateDirectoryA"
 Private Declare Function OpenFile Lib "kernel32" (ByVal lpFileName As String, lpReOpenBuff As OFSTRUCT, ByVal wStyle As Long) As Long
 Private Declare Function DeleteFile Lib "kernel32" Alias "DeleteFileA" (ByVal lpFileName As String) As Long
 
+'Constants
 Private Const GENERIC_READ     As Long = &H80000000
 Private Const FILE_SHARE_READ  As Long = &H1
 Private Const OPEN_EXISTING    As Long = 3
