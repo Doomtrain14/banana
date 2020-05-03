@@ -230,7 +230,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Const APP_VERSION = "1.0"
+Const APP_VERSION = "1.1"
 
 Dim g_file_name As String
 Dim g_file_size As Currency
@@ -429,7 +429,7 @@ Private Sub cmd_split_Click()
         Next
     ElseIf (LCase$(g_file_type) = "xci") Then
         For i = 0 To file_part_count - 1
-            split_file_names(i) = no_path_ext_file_name + ".xc" + Str$(i)
+            split_file_names(i) = no_path_ext_file_name + ".xc" + Trim$(i)
         Next
     Else
         For i = 0 To file_part_count - 1

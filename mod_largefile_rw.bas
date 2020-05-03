@@ -1,14 +1,21 @@
 Attribute VB_Name = "mod_largefile_rw"
 Option Explicit
-Private Const GENERIC_WRITE            As Long = &H40000000
-Private Const GENERIC_READ             As Long = &H80000000
-Private Const FILE_ATTRIBUTE_NORMAL    As Long = &H80&
-Private Const CREATE_ALWAYS            As Long = 2
-Private Const OPEN_ALWAYS              As Long = 4
+Private Const GENERIC_WRITE As Long = &H40000000
+Private Const GENERIC_READ As Long = &H80000000
+Private Const FILE_ATTRIBUTE_NORMAL As Long = &H80&
+Private Const CREATE_ALWAYS = 2
+Private Const OPEN_ALWAYS = 4
 
-Private Const FILE_BEGIN               As Long = 0
-Private Const FILE_CURRENT             As Long = 1
-Private Const FILE_END                 As Long = 2
+Private Const FILE_BEGIN = 0, FILE_CURRENT = 1, FILE_END = 2
+
+Private Type ModCurr
+    val As Currency
+End Type
+
+Private Type ModLong
+    lo_val As Long
+    hi_val As Long
+End Type
 
 Private Declare Function ReadFile Lib "kernel32" ( _
     ByVal hFile As Long, _
@@ -70,18 +77,19 @@ Public Function write_data(ByRef file_handle As Long, data() As Byte) As Long
 End Function
 
 Public Function file_seek_pos(ByRef file_handle As Long, ByVal pos As Currency) As Long
-    Dim lo_val As Long
-    Dim hi_val As Long
-    hi_val = 0
-    lo_val = pos
-    file_seek_pos = SetFilePointer(file_handle, lo_val, hi_val, FILE_BEGIN)
+    Dim C As ModCurr
+    Dim L As ModLong
+    C.val = pos / 10000@
+    LSet L = C
+
+    file_seek_pos = SetFilePointer(file_handle, L.lo_val, L.hi_val, FILE_BEGIN)
     
     If file_seek_pos = -1 Then
         Call notify_error(2)
     End If
 End Function
 
-Public Function file_seek_end(ByRef file_handle As Long) As Long
+Public Function file_seek_end(ByRef file_handle As Long) As Currency
 
     file_seek_end = SetFilePointer(file_handle, 0&, ByVal 0&, FILE_END)
             
