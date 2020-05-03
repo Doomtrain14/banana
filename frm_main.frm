@@ -230,7 +230,7 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Const APP_VERSION = "1.1"
+Const APP_VERSION = "1.2"
 
 Dim g_file_name As String
 Dim g_file_size As Currency
@@ -479,7 +479,7 @@ Private Sub cmd_split_Click()
         
         
         Dim update_freq As Currency
-        update_freq = Int((read_ctr - 1) * 0.05)
+        update_freq = Int((read_ctr - 1) * 0.01)
         
         pos = 0
         While (pos < read_ctr)
@@ -489,8 +489,8 @@ Private Sub cmd_split_Click()
             Call file_seek_end(fh_out)
             Call write_data(fh_out, data)
             
+            lbl_file_progress.Caption = "File Progress: (" + Trim$(i + 1) + "/" + Trim$(1 + UBound(split_file_names)) + ") " + Format$(Round(100 * pos / (read_ctr - 1), 2), "00.00") + "%"
             If (large_modulo(pos, update_freq) < 1) Then
-                lbl_file_progress.Caption = "File Progress: (" + Trim$(i + 1) + "/" + Trim$(1 + UBound(split_file_names)) + ") " + Format$(Round(100 * pos / (read_ctr - 1), 2), "00.00") + "%"
                 DoEvents
             End If
             pos = pos + 1
